@@ -102,7 +102,7 @@ namespace Led_Api.Controllers
         [HttpGet("buzzerOn")]
         public void BuzzerOn()
         {
-            int buzzPin = 30;
+            int buzzPin = 12;
             GpioController controller = new GpioController();
 
             controller.OpenPin(buzzPin, PinMode.Output);
@@ -116,7 +116,7 @@ namespace Led_Api.Controllers
         public void BuzzerOff()
         {
 
-            int buzzPin = 30;
+            int buzzPin = 12;
             GpioController controller = new GpioController();
 
             controller.OpenPin(buzzPin, PinMode.Output);
@@ -133,8 +133,8 @@ namespace Led_Api.Controllers
         [HttpGet("sensorOn")]
         public async Task<string> SensorOn()
         {
-            const int triggerPin = 8;
-            const int echoPin = 9;
+            const int triggerPin = 23;
+            const int echoPin = 24;
 
             GpioController controller = new GpioController();
 
