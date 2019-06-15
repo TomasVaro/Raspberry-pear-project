@@ -98,6 +98,37 @@ namespace Led_Api.Controllers
 
         }
 
+        // GET: Buzzer/on
+        [HttpGet("buzzerOn")]
+        public void BuzzerOn()
+        {
+            int ledPin = 17;
+            GpioController controller = new GpioController();
+
+            controller.OpenPin(ledPin, PinMode.Output);
+            controller.Write(ledPin, PinValue.High);
+
+
+        }
+
+        // GET: Buzzer/off
+        [HttpGet("buzzerOff")]
+        public void BuzzerOff()
+        {
+
+            int ledPin = 17;
+            GpioController controller = new GpioController();
+
+            controller.OpenPin(ledPin, PinMode.Output);
+
+            controller.Write(ledPin, PinValue.Low);
+
+
+
+
+        }
+
+
         // GET: api/sensorOn
         [HttpGet("sensorOn")]
         public async Task<string> SensorOn()
