@@ -32,6 +32,41 @@ namespace Led_Api.Controllers
 
         }
 
+        // GET: /Led/turboblinkblink
+        [HttpGet("turboblink")]
+        public async Task TurboBlink()
+        {
+
+            int ledPin = 21;
+            using (GpioController controller = new GpioController())
+            {
+                controller.OpenPin(ledPin, PinMode.Output);
+                controller.Write(ledPin, PinValue.High);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.Low);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.High);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.Low);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.High);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.Low);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.High);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.Low);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.High);
+                await Task.Delay(1000);
+                controller.Write(ledPin, PinValue.Low);
+
+            }
+
+
+
+        }
+
         // GET: /Led/on
         [HttpGet("on")]
         public void LedOn()
