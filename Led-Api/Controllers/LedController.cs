@@ -70,7 +70,7 @@ namespace Led_Api.Controllers
 
         // GET: /Led/on
         [HttpGet("on")]
-        public void LedOn()
+        public string LedOn()
         {
             int ledPin = 21;
             GpioController controller = new GpioController();
@@ -78,12 +78,12 @@ namespace Led_Api.Controllers
             controller.OpenPin(ledPin, PinMode.Output);
             controller.Write(ledPin, PinValue.High);
 
-
+	        return "The LED is on!";
         }
 
-        // GET: api/off
+        // GET: Led/off
         [HttpGet("off")]
-        public void LedOff()
+        public string LedOff()
         {
 
             int ledPin = 21;
@@ -93,7 +93,7 @@ namespace Led_Api.Controllers
 
             controller.Write(ledPin, PinValue.Low);
 
-
+            return "The LED is off!";
 
 
         }
@@ -118,12 +118,13 @@ namespace Led_Api.Controllers
             Stopwatch sw = new Stopwatch();
             sw.Reset();
             sw.Start();
-            while (pulseIn == PinValue.Low) { }
+            while (pulseIn == PinValue.Low)
+                pulseIn = controller.Read(echoPin);
             sw.Stop();
 
-            long distanceInCentimeter = (sw.ElapsedMilliseconds * 1000) / 58;
+            long distanceInMeter = sw.ElapsedMilliseconds / 5800;
 
-            return distanceInCentimeter.ToString();
+            return distanceInMeter.ToString();
         }
 
     }
