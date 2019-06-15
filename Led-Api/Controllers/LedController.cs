@@ -102,11 +102,11 @@ namespace Led_Api.Controllers
         [HttpGet("buzzerOn")]
         public void BuzzerOn()
         {
-            int ledPin = 17;
+            int buzzPin = 30;
             GpioController controller = new GpioController();
 
-            controller.OpenPin(ledPin, PinMode.Output);
-            controller.Write(ledPin, PinValue.High);
+            controller.OpenPin(buzzPin, PinMode.Output);
+            controller.Write(buzzPin, PinValue.High);
 
 
         }
@@ -116,12 +116,12 @@ namespace Led_Api.Controllers
         public void BuzzerOff()
         {
 
-            int ledPin = 17;
+            int buzzPin = 30;
             GpioController controller = new GpioController();
 
-            controller.OpenPin(ledPin, PinMode.Output);
+            controller.OpenPin(buzzPin, PinMode.Output);
 
-            controller.Write(ledPin, PinValue.Low);
+            controller.Write(buzzPin, PinValue.Low);
 
 
 
