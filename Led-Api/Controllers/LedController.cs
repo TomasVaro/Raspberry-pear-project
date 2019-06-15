@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Device.Gpio;
-
+using System.Threading;
+using System.Diagnostics;
 
 namespace Led_Api.Controllers
 {
@@ -25,7 +26,7 @@ namespace Led_Api.Controllers
                 controller.Write(ledPin, PinValue.High);
                 await Task.Delay(3000);
                 controller.Write(ledPin, PinValue.Low);
-
+                
             }
 
 
@@ -80,7 +81,7 @@ namespace Led_Api.Controllers
 
         }
 
-        // POST: api/off
+        // GET: api/off
         [HttpGet("off")]
         public void LedOff()
         {
@@ -95,6 +96,34 @@ namespace Led_Api.Controllers
 
 
 
+        }
+
+        // GET: api/sensorOn
+        [HttpGet("sensorOn")]
+        public async Task<string> SensorOn()
+        {
+            const int triggerPin = 8;
+            const int echoPin = 9;
+
+            GpioController controller = new GpioController();
+
+            controller.OpenPin(triggerPin, PinMode.Output);
+            controller.OpenPin(echoPin, PinMode.Input);
+
+            controller.Write(triggerPin, PinValue.High);
+            await Task.Delay(new TimeSpan(100_000));
+            controller.Write(triggerPin, PinValue.Low);
+
+            PinValue pulseIn = PinValue.Low;
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
+            while (pulseIn == PinValue.Low) { }
+            sw.Stop();
+
+            long distanceInCentimeter = (sw.ElapsedMilliseconds * 1000) / 58;
+
+            return distanceInCentimeter.ToString();
         }
 
     }
